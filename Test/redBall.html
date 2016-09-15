@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+    <html>
+        <head>
+            <meta charset = "UTF-8">
+            <title>Red Ball</title>
+            <script type = "text/javascript" src = "simpleGame.js"></script>
+            <script type = "text/javascript">
+                var scene;
+                var ball;
+                function init(){
+                    scene = new Scene();
+                    ball = new Sprite(scene, "redBall.png", 50, 50);
+                    ball.setMoveAngle(180);
+                    ball.setSpeed(10);        
+                    scene.start();
+                }
+                function update(){
+                    scene.clear();
+                    if (keysDown[K_RIGHT]) {
+                        ball.changeAngleBy(5);
+                    }
+                    if (keysDown[K_LEFT]) {
+                        ball.changeAngleBy(-5);
+                    }
+                    if (keysDown[K_UP]) {
+                        ball.changeSpeedBy(+1);
+                    }
+                    if (keysDown[K_DOWN]) {
+                        ball.changeSpeedBy(-1);
+                    }
+                    ball.update();
+                }
+            </script>
+        </head>
+        <body onload = "init()">
+        </body>
+    </html>    
