@@ -7,18 +7,13 @@
             <script type = "text/javascript">
                 var scene;
                 var car;
-                function spriteConstructor(){
-                    scene.hideCursor();
-                    var tSprite = new Sprite(scene, "car.png", 50, 30);
-                    //tSprite.setMoveAngle(270);
-                    tSprite.setPosition(100,100);
-                    tSprite.setSpeed(0);
-                    tSprite.followMouse = function(){
-                        this.setX(document.mouseX);
-                        this.setY(document.mouseY);
-                    }
-                    var sound = new Sound("music.mp3")
-                    tSprite.checkKeys = function(){
+                var timer;
+                var output;
+                function carConstructor(){
+                    car = new Sprite(scene, "car.png", 50, 30);
+                    car.setMoveAngle(90);
+                    car.setSpeed(0);
+                    car.checkKeys = function(){
                         if (keysDown[K_LEFT]) {
                             this.changeAngleBy(-5);
                         }
@@ -29,36 +24,32 @@
                             this.changeSpeedBy(1);
                         }
                         if (keysDown[K_DOWN]) {
-                            this.changSpeedBy(-1);
+                            this.changeSpeedBy(-1);
                         }
                     }
-                    tSprite.checkSound = function(){
-                        var count = 0;
-                        if (keysDown[K_SPACE]) {
-                            count++;
-                            if (count % 2 != 0) {
-                                sound.play();
-                            } else {
-                                sound.pause();
-                            }
-                        }
-                    }
-                    return tSprite;
+                    return car;
+                }
+                function reset(){
+                    timer.reset();
                 }
                 function init(){
                     scene = new Scene();
-                    car = spriteConstructor();
+                    output = document.getElementById("time");
+                    timer = new Timer();
+                    car = carConstructor();
                     scene.start();
                 }
                 function update(){
                     scene.clear();
+                    currentTime = timer.getElapsedTime();
+                    output.innerHTML = currentTime;
                     car.checkKeys();
-                    //car.checkSound();
-                    car.followMouse();
                     car.update();
                 }
             </script>
         </head>
         <body onload = "init()">
+            <div id = "time">0.000</div>
+            <div id = "btn"><button type = "button" onclick = "reset()">Reset Time</button></div>
         </body>
     </html>    

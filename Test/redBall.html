@@ -10,12 +10,11 @@
                 function init(){
                     scene = new Scene();
                     ball = new Sprite(scene, "redBall.png", 50, 50);
-                    ball.setMoveAngle(180);
+                    ball.setMoveAngle(360);
                     ball.setSpeed(10);        
                     scene.start();
                 }
-                function update(){
-                    scene.clear();
+                function checkKeys(){
                     if (keysDown[K_RIGHT]) {
                         ball.changeAngleBy(5);
                     }
@@ -28,6 +27,10 @@
                     if (keysDown[K_DOWN]) {
                         ball.changeSpeedBy(-1);
                     }
+                }
+                function update(){
+                    scene.clear();
+                    checkKeys();
                     ball.update();
                 }
             </script>

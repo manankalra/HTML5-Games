@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+    <html>
+        <head>
+            <meta charset = "UTF-8">
+            <title>Check Sound</title>
+            <script type = "text/javascript" src = "simpleGame.js"></script>
+            <script type = "text/javascript">
+                var scene;
+                var sound;
+                function init(){
+                    scene = new Scene();
+                    output = document.getElementById("output");
+                    sound = new Sound("Clocks.mp3");
+                    scene.start();
+                }
+                function checkSound(){
+                    if (keysDown[K_SPACE]) {
+                        sound.play();
+                    } 
+                }
+                function update(){
+                    scene.clear();
+                    checkSound();
+                    scene.update();
+                }
+            </script>
+        </head>
+        <body onload = "init()">
+        </body>
+    </html>    

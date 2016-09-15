@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+    <html>
+        <head>
+            <meta charset = "UTF-8">
+            <title>Collision</title>
+            <script type = "text/javascript" src = "simpleGame.js"></script>
+            <script type = "text/javascript">
+                var scene;
+                var ball;
+                var car;
+                var output;
+                function ballConstructor() {
+                    ball = new Sprite(scene, "redBall.png", 50, 50);
+                    ball.setPosition(scene.width/2, scene.height/2);
+                    ball.setSpeed(0);
+                    return ball;
+                }
+                function carConstructor(){
+                    car = new Sprite(scene, "car.png", 150, 100);
+                    car.followMouse = function(){
+                        this.setX(document.mouseX);
+                        this.setY(document.mouseY);
+                    }
+                    return car;
+                }
+                function checkCollisions(){
+                    var distance = ball.distanceTo(car);
+                    /* //bounding-box collision
+                    if(ball.collidesWith(car)){
+                        output.innerHTML = "Collision";
+                    } else {
+                        output.innerHTML = "No collision";
+                    }
+                    */
+                    //distance-based collision
+                    if (distance < 50) {
+                        output.innerHTML = "Collision: " + distance;
+                    } else{
+                        output.innerHTML = "No collision: " + distance;
+                    }
+                }
+                function init(){
+                    scene = new Scene();
+                    scene.hideCursor();
+                    output = document.getElementById("output");
+                    ball = ballConstructor();
+                    car = carConstructor();
+                    scene.start();
+                }
+                
+                function update(){
+                    scene.clear();
+                    car.followMouse();
+                    checkCollisions();
+                    ball.update();
+                    car.update();
+                }
+            </script>
+        </head>
+        <body onload = "init()">
+            <div id = "output"></div>
+        </body>
+    </html>    
