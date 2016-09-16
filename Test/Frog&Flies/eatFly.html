@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+    <html lang = "en">
+        <head>
+            <meta charset = "UTF-8">
+            <title>Fly Eater</title>
+            <script type = "text/javascript" src = "simpleGame.js"></script>
+            <script type = "text/javascript" src = "frogandfly.js"></script>
+            <script type = "text/javascript">
+                var scene;
+                var fly;
+                var frog;
+                var leaves;
+                var ribbit;
+                var output;
+                function checkCollisions(){
+                    if (frog.collidesWith(fly0)) {
+                        ribbit.play();
+                        fly0.reset();
+                    } else if (frog.collidesWith(fly1)) {
+                        ribbit.play();
+                        fly1.reset();
+                    } else if (frog.collidesWith(fly2)) {
+                        ribbit.play();
+                        fly2.reset();
+                    }
+                }
+                function init(){
+                    scene = new Scene();
+                    scene.setBG("green");
+                    leaves = new Sprite(scene, "leaves.png", 1250, 800);
+                    leaves.setSpeed(0);
+                    fly0 = flyConstructor();
+                    fly1 = flyConstructor();
+                    fly2 = flyConstructor();
+                    frog = new frogConstructor();
+                    ribbit = new Sound("ribbit.mp3");
+                    scene.start();
+                }
+                function update(){
+                    scene.clear();
+                    leaves.update();
+                    fly0.move();
+                    fly1.move();
+                    fly2.move();
+                    frog.catchFly();
+                    checkCollisions();
+                    frog.update();
+                    fly0.update();
+                    fly1.update();
+                    fly2.update();
+                }
+            </script>
+        </head>
+        <body onload = "init()">
+            <div id = "output"></div>
+        </body>
+    </html>
