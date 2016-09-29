@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+    <html>
+        <head>
+            <meta charset = "UTF-8">
+            <title>Red Ball</title>
+            <script type = "text/javascript" src = "simpleGame.js"></script>
+            <script type = "text/javascript">
+                              var scene;
+                              var ball;
+                              var buttonMove;
+
+                              function init() {
+                                  scene = new Scene();
+                                  scene.setSize(500, 500);
+                                  ball = new Sprite(scene, "redBall.png", 50, 50);
+                                  ball.setSpeed(0);
+                                  ball.setPosition(250, 250);
+                                  buttonMove = new GameButton("Push");
+                                  buttonMove.setPos(250, 450);
+                                  buttonMove.setSize(60, 30);
+                                  scene.start();
+                              }
+
+                              function checkButtons() {
+                                  if (buttonMove.isClicked()) {
+                                      ball.setSpeed(3);
+                                  } else {
+                                      ball.setSpeed(0);
+                                  }
+                              }
+
+                              function update() {
+                                  scene.clear();
+                                  checkButtons();
+                                  ball.update();
+                              }
+            </script>
+        </head>
+        <body onload = "init()">
+        </body>
+    </html>    

@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+    <html>
+        <head>
+            <meta charset = "UTF-8">
+            <title>Red Ball</title>
+            <script type = "text/javascript" src = "simpleGame.js"></script>
+            <script type = "text/javascript">
+                              var scene;
+                              var ball;
+                              var joy;
+
+                              function init() {
+                                  scene = new Scene();
+                                  scene.setSize(500, 500);
+                                  scene.hideCursor();
+                                  ball = new Sprite(scene, "redBall.png", 50, 50);
+                                  ball.setSpeed(0);
+                                  ball.setPosition(250, 250);
+                                  joy = new Joy()
+                                  scene.start();
+                              }
+
+                              function followMouse() {
+                                  var x = scene.getMouseX();
+                                  var y = scene.getMouseY();
+                                  if (scene.touchable) {
+                                    y -= 10;
+                                  }
+                                  ball.setPosition(x, y);
+                              }
+
+                              function update() {
+                                  scene.clear();
+                                  followMouse();
+                                  ball.update();
+                              }
+            </script>
+        </head>
+        <body onload = "init()">
+        </body>
+    </html>    

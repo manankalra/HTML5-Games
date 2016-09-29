@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+    <html>
+        <head>
+            <meta charset = "UTF-8">
+            <title>Red Ball</title>
+            <script type = "text/javascript" src = "simpleGame.js"></script>
+            <script type = "text/javascript">
+                              var scene;
+                              var output;
+                              var joystick;
+                              var jx, jy, jdx, jdy;
+                              var result;
+
+                              function init() {
+                                  scene = new Scene();
+                                  output = document.getElementById("output");
+                                  if (scene.touchable) {
+                                    joystick = new Joy();
+                                  } else {
+                                    alert('A touch-based interface is required!');
+                                  }
+                                  scene.start();
+                              }
+
+                              function update(){
+                                if (scene.touchable) {
+                                    jx = joystick.getMouseX();
+                                    jy = joystick.getMouseY();
+                                    jdx = joystick.getDiffX();
+                                    jdy = joystick.getDiffY();
+                                    result = "Joystick X: " + jx + "<br />";
+                                    result += "Joystick Y: " + jy + "<br/>";
+                                    result += "Joystick Dx: " + jdx + "<br/>";
+                                    result += "Joystick Dy: " + jdy + "<br/>";
+                                    output.innerHTML = result;
+                                } else {
+                                    console.log('Expecting a touch screen!');
+                                }
+                              }
+            </script>
+        </head>
+        <body onload = "init()">
+            <div id = "output">Nothing yet...</div>
+        </body>
+    </html>    

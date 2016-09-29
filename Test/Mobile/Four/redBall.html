@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+    <html>
+        <head>
+            <meta charset = "UTF-8">
+            <title>Red Ball</title>
+            <script type = "text/javascript" src = "simpleGame.js"></script>
+            <script type = "text/javascript">
+                              var scene;
+                              var output;
+                              var joystick;
+                              var ball;
+
+                              function init() {
+                                  scene = new Scene();
+                                  ball = new Sprite(scene, "redBall.png", 40, 40);
+                                  ball.setSpeed(0);
+                                  ball.setPosition(400, 300);
+                                  if (scene.touchable) {
+                                    joystick = new Joy();
+                                  } else {
+                                    alert('A touch-based interface is required!');
+                                  }
+                                  scene.start();
+                              }
+
+                              function update(){
+                                scene.clear();
+                                if (scene.touchable) {
+                                    ball.setDX(joystick.getDiffX());
+                                    ball.setDY(joystick.getDiffY());
+                                } else {
+                                    console.log('Expecting a touch screen!');
+                                }
+                                ball.update();
+                              }
+            </script>
+        </head>
+        <body onload = "init()">
+        </body>
+    </html>    
