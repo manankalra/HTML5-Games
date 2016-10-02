@@ -1,0 +1,59 @@
+<!DOCTYPE HTML>
+    <html>
+        <head>
+            <meta charset = "UTF-8">
+            <title>Move Car</title>
+            <script type = "text/javascript" src = "simpleGame.js"></script>
+            <script type = "text/javascript">
+                var scene;
+                var car;
+                var joy;
+                var dx, dy;
+                function carConstructor(){
+                    car = new Sprite(scene, "car.png", 50, 30);
+                    car.checkKeys = function(){
+                        if (keysDown[K_LEFT]) {
+                            this.changeAngleBy(-5);
+                        }
+                        if (keysDown[K_RIGHT]) {
+                            this.changeAngleBy(5);
+                        }
+                        if (keysDown[K_UP]) {
+                            this.changeSpeedBy(1);
+                        }
+                        if (keysDown[K_DOWN]) {
+                            this.changeSpeedBy(-1);
+                        }
+                    }
+                    car.checkJoy = function(){
+                        dx = joy.getDiffX();
+                        dy = joy.getDiffY();
+                        car.setSpeed((dy * -1) / 5);
+                        car.changeAngleBy(dx / 10);
+                    }
+                    return car;
+                }
+                function init(){
+                    scene = new Scene();
+                    car = carConstructor();
+                    if (scene.touchable) {
+                        joy = new Joy();
+                    } else {
+                        alert('Not a touchable interface.');
+                    }
+                    scene.start();
+                }
+                function update(){
+                    scene.clear();
+                    if (scene.touchable) {
+                        car.checkJoy();
+                    } else {
+                        car.checkKeys();
+                    }
+                    car.update();
+                }
+            </script>
+        </head>
+        <body onload = "init()">
+        </body>
+    </html>    

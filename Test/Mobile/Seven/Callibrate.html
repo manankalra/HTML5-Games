@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+    <html lang = "en">
+        <head>
+            <meta charset = "UTF-8">
+            <title>Callibrate</title>
+            <script type = "text/javascript" src = "simpleGame.js"></script>
+            <script type = "text/javascript">
+                var game;
+                var ball;
+                var accel;
+                var btnCalibrate;
+                var offsetAX = 0;
+                var offsetAY = 0;
+        
+                function init(){
+                    game = new Scene();
+                    ball = new Sprite(game, "redBall.png", 50, 50);
+                    accel = new Accel();
+                    btnCalibrate = new GameButton("calibrate");
+                    btnCalibrate.setSize(100, 100);
+                    btnCalibrate.setPosition(100, 100);
+                    game.start();
+                }
+                
+                function checkButton(){
+                    if (btnCalibrate.isClicked()){
+                        offsetAY = accel.getAY();
+                        offsetAX = accel.getAX();
+                    }
+                }
+    
+                function update(){
+                    game.clear();
+                    checkButton();
+                    newDX = accel.getAY() - offsetAY;
+                    newDY = accel.getAX() - offsetAX;
+                    newDX *= -5;
+                    newDY *= -5;
+                    ball.setDX(newDX);
+                    ball.setDY(newDY);
+                    ball.update();
+                }
+        
+            </script>
+        </head>
+        <body onload = "init()">
+    
+        </body>
+    </html>
